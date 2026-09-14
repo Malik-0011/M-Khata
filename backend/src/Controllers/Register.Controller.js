@@ -1,12 +1,17 @@
 import User from '../Models/User.Models.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import uploadFile from '../Utils/imagekit.js'
 
 async function registerController(req, res) {
 
   try {
     const { fullName, email, password, phone } = req.body;
+    const image = req.file;
 
+    const profilePic = await uploadFile(image);
+
+    
     // 1. Validate input fields
     if (!fullName || !phone || !password) {
       return res.status(400).json({ message: "Please fill in all fields." });
@@ -22,11 +27,12 @@ async function registerController(req, res) {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // 4. Create and save the new user
+    // 4. create new user
     const newUser = new User({
       fullName,
       phone,
       email,
+      profilePic,
       password: hashedPassword
     });
 
@@ -39,13 +45,13 @@ async function registerController(req, res) {
       process.env.JWT_SECRET
     );
 
-    // 6. Set token in HTTP-Only Cookie
+    // 6. Set token
     res.cookie('token', token);
 
     // 5. Send success response (Exclude password from response)
     res.status(201).json({ 
       message: "User registered successfully!",
-      user: { id: newUser._id, username: newUser.username, email: newUser.email }
+      user: { id: newUser._id, fullName: newUser.fullName, phone: newUser.phone, profilePic : newUser.profilePic }
     });
 
   } catch (error) {
