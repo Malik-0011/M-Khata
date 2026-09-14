@@ -1,0 +1,24 @@
+{
+  "name": "m-khata",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "khata",
+    "ap"
+  ],
+  "homepage": "https://github.com/Malik-0011/M-Khata#readme",
+  "bugs": {
+    "url": "https://github.com/Malik-0011/M-Khata/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Malik-0011/M-Khata.git"
+  },
+  "license": "ISC",
+  "author": "Malik",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
