@@ -11,10 +11,9 @@ async function uploadFile(file) {
   if (!file) {
     return null;
   }
- 
 
   const imagekitResponse = await imagekit.files.upload({
-    file: file.buffer.toString('base64'),
+    file: file.buffer.toString("base64"),
     fileName: file.originalname,
     folder: "/M-Khata/uploads",
     useUniqueFileName: true,
